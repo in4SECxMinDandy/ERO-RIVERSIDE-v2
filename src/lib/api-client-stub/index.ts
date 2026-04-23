@@ -1,11 +1,34 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const API_BASE = "/api";
+const SESSION_KEY = "ero_admin_session";
+
+const MOCK_ADMIN = { id: 1, username: "admin", role: "admin" };
+const MOCK_CREDENTIALS = { username: "admin", password: "admin123" };
+
+type MutationOptions<TData = unknown, TError = Error, TVariables = unknown> = {
+  onSuccess?: (data: TData) => void;
+  onError?: (error: TError) => void;
+};
 
 async function fetchJson(url: string, options?: RequestInit) {
   const res = await fetch(url, options);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
+}
+
+function getSession() {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function setSession(user: typeof MOCK_ADMIN | null) {
+  if (user) localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+  else localStorage.removeItem(SESSION_KEY);
 }
 
 export function useListProducts(params?: Record<string, unknown>) {
@@ -167,30 +190,60 @@ export function useCreateRegistration() {
 export function useGetAdminMe() {
   return useQuery({
     queryKey: ["admin-me"],
-    queryFn: () => fetchJson(`${API_BASE}/admin/me`),
+    queryFn: async () => {
+      const session = getSession();
+      if (!session) throw new Error("Not authenticated");
+      return session;
+    },
     retry: false,
   });
 }
 
-export function useAdminLogin() {
+export function useAdminLogin(opts?: { mutation?: MutationOptions }) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (data: unknown) =>
-      fetchJson(`${API_BASE}/admin/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-me"] }),
+    mutationFn: async (payload: unknown) => {
+      const body =
+        payload && typeof payload === "object" && "data" in payload
+          ? (payload as { data: unknown }).data
+          : payload;
+      const { username, password } = body as { username: string; password: string };
+      await new Promise((r) => setTimeout(r, 400));
+      if (
+        username === MOCK_CREDENTIALS.username &&
+        password === MOCK_CREDENTIALS.password
+      ) {
+        setSession(MOCK_ADMIN);
+        return MOCK_ADMIN;
+      }
+      throw new Error("Sai tài khoản hoặc mật khẩu");
+    },
+    onSuccess: (data) => {
+      qc.setQueryData(["admin-me"], data);
+      opts?.mutation?.onSuccess?.(data);
+    },
+    onError: (err) => {
+      opts?.mutation?.onError?.(err as Error);
+    },
   });
 }
 
-export function useAdminLogout() {
+export function useAdminLogout(opts?: { mutation?: MutationOptions }) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: () =>
-      fetchJson(`${API_BASE}/admin/logout`, { method: "POST" }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-me"] }),
+    mutationFn: async () => {
+      await new Promise((r) => setTimeout(r, 200));
+      setSession(null);
+      return {};
+    },
+    onSuccess: (data) => {
+      qc.setQueryData(["admin-me"], null);
+      qc.invalidateQueries({ queryKey: ["admin-me"] });
+      opts?.mutation?.onSuccess?.(data);
+    },
+    onError: (err) => {
+      opts?.mutation?.onError?.(err as Error);
+    },
   });
 }
 
