@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import {
   categoryStore,
   productStore,
+  mediaStore,
   notifyUpdate,
   STORE_EVENT,
 } from "@/lib/mock-store";
@@ -254,27 +255,57 @@ export function useCmsUpdateProductStatus(opts?: { mutation?: MutationOptions })
   });
 }
 
-// ─── Media (stub only - no backend) ────────────────────────────────────────
+// ─── Media ─────────────────────────────────────────────────────────────────
 
 export function useListMedia(_params?: Record<string, unknown>) {
+  const qc = useQueryClient();
+  useStoreSubscription(qc, [["media"]]);
   return useQuery({
     queryKey: ["media"],
-    queryFn: async () => ({ media: [], total: 0 }),
+    queryFn: async () => {
+      await delay();
+      const media = mediaStore.getAll();
+      return { media, total: media.length };
+    },
   });
 }
 
 export function useCmsCreateMedia(opts?: { mutation?: MutationOptions }) {
+  const qc = useQueryClient();
   return useMutation({
-    mutationFn: async () => { await delay(); return {}; },
-    onSuccess: (d) => opts?.mutation?.onSuccess?.(d),
+    mutationFn: async (payload: unknown) => {
+      await delay();
+      const data = (payload && typeof payload === "object" && "data" in payload)
+        ? (payload as { data: unknown }).data
+        : payload;
+      const item = mediaStore.create(data as any);
+      notifyUpdate();
+      return item;
+    },
+    onSuccess: (d) => {
+      qc.invalidateQueries({ queryKey: ["media"] });
+      opts?.mutation?.onSuccess?.(d);
+    },
     onError: (e) => opts?.mutation?.onError?.(e as Error),
   });
 }
 
 export function useCmsDeleteMedia(opts?: { mutation?: MutationOptions }) {
+  const qc = useQueryClient();
   return useMutation({
-    mutationFn: async () => { await delay(); return {}; },
-    onSuccess: (d) => opts?.mutation?.onSuccess?.(d),
+    mutationFn: async (payload: unknown) => {
+      await delay();
+      const id = typeof payload === "object" && payload !== null && "id" in payload
+        ? (payload as { id: number }).id
+        : (payload as number);
+      mediaStore.delete(id);
+      notifyUpdate();
+      return { id };
+    },
+    onSuccess: (d) => {
+      qc.invalidateQueries({ queryKey: ["media"] });
+      opts?.mutation?.onSuccess?.(d);
+    },
     onError: (e) => opts?.mutation?.onError?.(e as Error),
   });
 }

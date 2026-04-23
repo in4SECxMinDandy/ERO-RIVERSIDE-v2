@@ -1,5 +1,6 @@
 const CATS_KEY = "ero_mock_categories";
 const PRODS_KEY = "ero_mock_products";
+const MEDIA_KEY = "ero_mock_media";
 
 export type Category = {
   id: number;
@@ -24,6 +25,36 @@ export type Product = {
   imageUrl: string | null;
   features: string[];
 };
+
+export type Media = {
+  id: number;
+  title: string;
+  type: "image" | "video";
+  url: string;
+  category: string;
+  visibility: "public" | "private" | "vip";
+  isPublic: boolean;
+  description?: string;
+};
+
+const INITIAL_MEDIA: Media[] = [
+  { id: 1, title: "Phối cảnh tổng thể khu đô thị", type: "image", url: "https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&q=80", category: "Phối cảnh", visibility: "public", isPublic: true, description: "Toàn cảnh khu đô thị ERO Riverside từ trên cao" },
+  { id: 2, title: "Phối cảnh đêm khu trung tâm", type: "image", url: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80", category: "Phối cảnh", visibility: "public", isPublic: true, description: "Ánh đèn lung linh về đêm" },
+  { id: 3, title: "Biệt thự mẫu BT-01 mặt tiền", type: "image", url: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80", category: "Thực tế", visibility: "public", isPublic: true, description: "Mặt tiền biệt thự BT-01 nhìn từ đường" },
+  { id: 4, title: "Nội thất phòng khách biệt thự", type: "image", url: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80", category: "Nội thất", visibility: "public", isPublic: true, description: "Phòng khách cao cấp phong cách Châu Âu" },
+  { id: 5, title: "Hồ bơi vô cực biệt thự BT-03", type: "image", url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80", category: "Tiện ích", visibility: "public", isPublic: true, description: "Hồ bơi vô cực nhìn ra sông Cầu" },
+  { id: 6, title: "Mặt bằng tầng 1 shophouse", type: "image", url: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80", category: "Mặt bằng", visibility: "public", isPublic: true, description: "Bản vẽ mặt bằng điển hình shophouse 5 tầng" },
+  { id: 7, title: "Công viên trung tâm khu đô thị", type: "image", url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80", category: "Tiện ích", visibility: "public", isPublic: true, description: "Không gian xanh rộng hơn 3ha" },
+  { id: 8, title: "Phố thương mại shophouse SH-01", type: "image", url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80", category: "Thực tế", visibility: "public", isPublic: true, description: "Shophouse đã bàn giao, tầng 1 kinh doanh" },
+  { id: 9, title: "Nhà liền kề LK-01 hoàn thiện", type: "image", url: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&q=80", category: "Thực tế", visibility: "public", isPublic: true, description: "Căn liền kề đã hoàn thiện nội ngoại thất" },
+  { id: 10, title: "Nội thất phòng ngủ master", type: "image", url: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?w=800&q=80", category: "Nội thất", visibility: "vip", isPublic: false, description: "Phòng ngủ master suite, thiết kế sang trọng" },
+  { id: 11, title: "Phối cảnh mặt sông Cầu", type: "image", url: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80", category: "Phối cảnh", visibility: "public", isPublic: true, description: "View trực diện sông Cầu từ khu biệt thự" },
+  { id: 12, title: "Khu vui chơi trẻ em", type: "image", url: "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?w=800&q=80", category: "Tiện ích", visibility: "public", isPublic: true, description: "Khu vui chơi ngoài trời dành cho trẻ em" },
+  { id: 13, title: "Mặt bằng tổng thể phân khu A", type: "image", url: "https://images.unsplash.com/photo-1574691250077-03a929faece5?w=800&q=80", category: "Mặt bằng", visibility: "public", isPublic: true, description: "Sơ đồ phân lô phân khu A – biệt thự" },
+  { id: 14, title: "Phòng gym hiện đại", type: "image", url: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80", category: "Tiện ích", visibility: "private", isPublic: false, description: "Phòng gym tiêu chuẩn 5 sao trong khu đô thị" },
+  { id: 15, title: "Phối cảnh biệt thự Indochine", type: "image", url: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80", category: "Phối cảnh", visibility: "public", isPublic: true, description: "Dãy biệt thự phong cách Đông Dương" },
+  { id: 16, title: "Hàng rào xanh nội khu", type: "image", url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80", category: "Thực tế", visibility: "public", isPublic: true, description: "Cảnh quan xanh mát tuyến đường nội khu" },
+];
 
 const INITIAL_CATEGORIES: Category[] = [
   { id: 1, name: "Biệt thự ven sông", slug: "biet-thu", description: "Biệt thự cao cấp mặt tiền sông, view thoáng" },
@@ -120,6 +151,7 @@ function save<T>(key: string, data: T[]) {
 function initIfEmpty() {
   if (!localStorage.getItem(CATS_KEY)) save(CATS_KEY, INITIAL_CATEGORIES);
   if (!localStorage.getItem(PRODS_KEY)) save(PRODS_KEY, INITIAL_PRODUCTS);
+  if (!localStorage.getItem(MEDIA_KEY)) save(MEDIA_KEY, INITIAL_MEDIA);
 }
 
 export const categoryStore = {
@@ -180,6 +212,22 @@ export const productStore = {
   },
   delete(id: number) {
     save(PRODS_KEY, this.getAll().filter(p => p.id !== id));
+  },
+};
+
+export const mediaStore = {
+  getAll(): Media[] {
+    initIfEmpty();
+    return load<Media>(MEDIA_KEY, INITIAL_MEDIA);
+  },
+  create(data: Omit<Media, "id">): Media {
+    const items = this.getAll();
+    const newItem: Media = { ...data, id: Date.now() };
+    save(MEDIA_KEY, [...items, newItem]);
+    return newItem;
+  },
+  delete(id: number) {
+    save(MEDIA_KEY, this.getAll().filter(m => m.id !== id));
   },
 };
 
