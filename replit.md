@@ -17,16 +17,42 @@ A Vietnamese real estate marketing and sales platform for "Khu Đô Thị Nam T�
 
 ```
 src/
+  admin/                        ← Toàn bộ giao diện Admin
+    layout/
+      admin-layout.tsx          - Sidebar + header layout cho admin
+    pages/
+      login.tsx
+      dashboard.tsx
+      categories.tsx
+      products.tsx
+      media.tsx
+      registrations.tsx
+      users.tsx
+      logs.tsx
+
+  user/                         ← Toàn bộ giao diện User (Public)
+    layout/
+      public-layout.tsx         - Navbar + footer layout cho trang public
+    pages/
+      home.tsx
+      products.tsx
+      product-detail.tsx
+      gallery.tsx
+      map.tsx
+      about.tsx
+      register.tsx
+      not-found.tsx
+
   components/
-    layout/       - AdminLayout, PublicLayout
-    ui/           - Shadcn UI components
-  pages/
-    admin/        - Dashboard, Products, Categories, Media, Registrations, Users, Logs, Login
-    user/         - Home, Products, ProductDetail, Gallery, Map, About, Register
+    ui/                         - Shadcn UI components (dùng chung)
+
   lib/
-    api-client-stub/  - Local stub for @workspace/api-client-react (API hooks)
-    utils.ts      - Tailwind utility
-  hooks/          - Custom React hooks
+    api-client-stub/            - Local stub thay thế @workspace/api-client-react
+    utils.ts
+
+  hooks/                        - Custom React hooks (dùng chung)
+  App.tsx                       - Routing chính
+  main.tsx
 ```
 
 ## Key Notes

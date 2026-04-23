@@ -1,4 +1,4 @@
-import { AdminLayout } from "@/components/layout/admin-layout";
+import { AdminLayout } from "@/admin/layout/admin-layout";
 import { useCmsListAuditLogs, useCmsListDataExports } from "@workspace/api-client-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { format } from "date-fns";

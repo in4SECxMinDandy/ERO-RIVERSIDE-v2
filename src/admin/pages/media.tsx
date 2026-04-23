@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AdminLayout } from "@/components/layout/admin-layout";
+import { AdminLayout } from "@/admin/layout/admin-layout";
 import { useListMedia, useCmsCreateMedia, useCmsDeleteMedia } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";

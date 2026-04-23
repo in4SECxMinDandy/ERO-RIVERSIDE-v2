@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { AdminLayout } from "@/components/layout/admin-layout";
+import { AdminLayout } from "@/admin/layout/admin-layout";
 import {
   useListProducts,
   useCmsListLeads,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AdminLayout } from "@/components/layout/admin-layout";
+import { AdminLayout } from "@/admin/layout/admin-layout";
 import {
   useListProducts, useCmsCreateProduct, useCmsUpdateProduct, useCmsDeleteProduct,
   useCmsUpdateProductStatus, useListProjectCategories

@@ -1,4 +1,4 @@
-import { PublicLayout } from "@/components/layout/public-layout";
+import { PublicLayout } from "@/user/layout/public-layout";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { useListProducts } from "@workspace/api-client-react";
 import { Link } from "wouter";

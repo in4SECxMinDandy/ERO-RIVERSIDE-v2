@@ -1,4 +1,4 @@
-import { AdminLayout } from "@/components/layout/admin-layout";
+import { AdminLayout } from "@/admin/layout/admin-layout";
 import { useCmsListUsers, useCmsUpdateUserStatus, useCmsCreateUser } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";

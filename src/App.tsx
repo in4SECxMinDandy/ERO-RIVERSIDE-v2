@@ -4,24 +4,24 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 // ─── User (Public) Pages ───────────────────────────────────────────────────
-import Home from "@/pages/user/home";
-import Products from "@/pages/user/products";
-import ProductDetail from "@/pages/user/product-detail";
-import Gallery from "@/pages/user/gallery";
-import MapPage from "@/pages/user/map";
-import AboutPage from "@/pages/user/about";
-import Register from "@/pages/user/register";
-import NotFound from "@/pages/user/not-found";
+import Home from "@/user/pages/home";
+import Products from "@/user/pages/products";
+import ProductDetail from "@/user/pages/product-detail";
+import Gallery from "@/user/pages/gallery";
+import MapPage from "@/user/pages/map";
+import AboutPage from "@/user/pages/about";
+import Register from "@/user/pages/register";
+import NotFound from "@/user/pages/not-found";
 
 // ─── Admin Pages ───────────────────────────────────────────────────────────
-import AdminLogin from "@/pages/admin/login";
-import AdminDashboard from "@/pages/admin/dashboard";
-import AdminCategories from "@/pages/admin/categories";
-import AdminProducts from "@/pages/admin/products";
-import AdminMedia from "@/pages/admin/media";
-import AdminRegistrations from "@/pages/admin/registrations";
-import AdminLogs from "@/pages/admin/logs";
-import AdminUsers from "@/pages/admin/users";
+import AdminLogin from "@/admin/pages/login";
+import AdminDashboard from "@/admin/pages/dashboard";
+import AdminCategories from "@/admin/pages/categories";
+import AdminProducts from "@/admin/pages/products";
+import AdminMedia from "@/admin/pages/media";
+import AdminRegistrations from "@/admin/pages/registrations";
+import AdminLogs from "@/admin/pages/logs";
+import AdminUsers from "@/admin/pages/users";
 
 const queryClient = new QueryClient({
   defaultOptions: {

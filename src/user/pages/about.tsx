@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { PublicLayout } from "@/components/layout/public-layout";
+import { PublicLayout } from "@/user/layout/public-layout";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Building2, TreePine, Car, School, CheckCircle2, ChevronRight, Landmark, Zap, Droplets, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";

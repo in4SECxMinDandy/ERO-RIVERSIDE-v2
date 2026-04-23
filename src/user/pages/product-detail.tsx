@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, Link } from "wouter";
-import { PublicLayout } from "@/components/layout/public-layout";
+import { PublicLayout } from "@/user/layout/public-layout";
 import { useGetProduct, useCreateRegistration } from "@workspace/api-client-react";
 import { Maximize, BedDouble, Bath, Layers, ShieldCheck, ArrowLeft, CheckCircle, Phone, Mail, Clock, Star, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
